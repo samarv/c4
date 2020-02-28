@@ -29,9 +29,25 @@ export default class App extends Component {
     assert(this.checkColWin() === true);
   };
 
+  assertDiagnolWin = () => {
+    this.onColumnClick(0, 1);
+    this.onColumnClick(0, 2);
+    this.onColumnClick(1, 1);
+    this.onColumnClick(1, 1);
+    this.onColumnClick(2, 1);
+    this.onColumnClick(2, 1);
+    this.onColumnClick(2, 1);
+    this.onColumnClick(3, 2);
+    this.onColumnClick(3, 1);
+    this.onColumnClick(3, 1);
+    this.onColumnClick(3, 1);
+    assert(this.checkDiagnolWin() === true);
+  };
+
   componentDidMount() {
     this.assertsRowWin();
     this.assertColWin();
+    this.assertDiagnolWin();
     console.log(this.state.matrix);
   }
 
@@ -82,6 +98,33 @@ export default class App extends Component {
       }
     }
     return false;
+  };
+
+  checkDiagnolWin = () => {
+    let { matrix } = this.state;
+    let diaArr = this.getDiagonals(matrix);
+    for (let i = 0; i < diaArr.length; i++) {
+      if (this.check4(diaArr[i]) === true) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  getDiagonals = matrix => {
+    let output = new Array(2 * matrix.length - 1);
+    for (let i = 0; i < output.length; ++i) {
+      output[i] = [];
+      if (i < matrix.length)
+        for (let j = 0; j <= i; ++j) {
+          output[i].push(matrix[i - j][j]);
+        }
+      else
+        for (let j = matrix.length - 1; j > i - matrix.length; --j) {
+          output[i].push(matrix[j][i - j]);
+        }
+    }
+    return output;
   };
 
   transposeMatrix = arr => {
