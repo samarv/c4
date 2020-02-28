@@ -24,7 +24,8 @@
 - [x] create a grid with 7 rows and 6 columns and
 - [x] initialize with current player
 - [ ] when someone clicks on colum.
-  - [ ]fin the lowest column
+  - [x]fin the lowest column
+  - [ ] check if we have 4 in the rows
   - [ ] find out which colour is playing
   - [ ] toggle the current player
   - [ ] check if we have 4 connected rows horizontally
