@@ -6,3 +6,18 @@
   justify-content: center;
   align-items: center;
 }
+
+td {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}
+
+.yellowDisc {
+  background-color: yellow;
+}
+
+.redDisc {
+  background-color: red;
+}

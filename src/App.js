@@ -132,9 +132,38 @@ export default class App extends Component {
   };
 
   render() {
+    let { matrix } = this.state;
     return (
       <div className="App">
-        <div>boo</div>
+        <table>
+          <tbody>
+            {matrix.map((row, i) => {
+              return (
+                <tr key={i}>
+                  {matrix[i].map((col, j) => {
+                    if (matrix[i][j] === 0) {
+                      return <td key={j}>{matrix[i][j]}</td>;
+                    } else if (matrix[i][j] === 1) {
+                      return (
+                        <td className="yellowDisc" key={j}>
+                          {matrix[i][j]}
+                        </td>
+                      );
+                    } else if (matrix[i][j] === 2) {
+                      return (
+                        <td className="redDisc" key={j}>
+                          {matrix[i][j]}
+                        </td>
+                      );
+                    } else {
+                      return <td key={j}>{matrix[i][j]}</td>;
+                    }
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     );
   }

@@ -23,10 +23,14 @@
 
 - [x] create a grid with 7 rows and 6 columns and
 - [x] initialize with current player
-- [ ] when someone clicks on colum.
+- [x] when someone clicks on colum.
+
   - [x]fin the lowest column
   - [x] check if we have 4 connected rows horizontally
   - [x] check if we have 4 connected rows vertically
   - [x] check if we have 4 connected rows diagnolly
-  - [ ] find out which colour is playing
-  - [ ] toggle the current player
+
+- [x] render and style matrix
+- [ ] add on click on column
+- [ ] find out which colour is playing
+- [ ] toggle the current player
