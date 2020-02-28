@@ -14,7 +14,10 @@ export default class App extends Component {
 
   componentDidMount() {
     this.onColumnClick(1, 1);
-    this.onColumnClick(1, 1);
+    this.onColumnClick(2, 1);
+    this.onColumnClick(3, 1);
+    this.onColumnClick(4, 1);
+    console.log(this.checkRowWin());
   }
   componentDidUpdate() {
     // console.log("boo");
@@ -50,6 +53,15 @@ export default class App extends Component {
     return false;
   };
 
+  checkRowWin = () => {
+    let { matrix } = this.state;
+    for (let row = 0; row < matrix.length; row++) {
+      if (this.check4(matrix[row]) === true) {
+        return true;
+      }
+    }
+    return false;
+  };
   render() {
     return (
       <div className="App">
