@@ -13,38 +13,25 @@ export default class App extends Component {
     };
   }
 
-  resetMatrix = () => {
-    this.setState({
-      matrix: Array(6)
-        .fill(0) //1. 6 rows
-        .map(row => new Array(7).fill(0)),
-    });
-  };
-
   assertsRowWin = () => {
     this.onColumnClick(1, 1);
     this.onColumnClick(2, 1);
     this.onColumnClick(3, 1);
     this.onColumnClick(4, 1);
     assert(this.checkRowWin() === true);
-    this.resetMatrix();
-    this.onColumnClick(1, 1);
-    this.onColumnClick(1, 1);
-    this.onColumnClick(3, 1);
-    this.onColumnClick(4, 1);
-    assert(this.checkRowWin() === false);
+  };
+
+  assertColWin = () => {
+    this.onColumnClick(2, 1);
+    this.onColumnClick(2, 1);
+    this.onColumnClick(2, 1);
+    this.onColumnClick(2, 1);
+    assert(this.checkColWin() === true);
   };
 
   componentDidMount() {
     this.assertsRowWin();
-    this.onColumnClick(1, 1);
-    this.onColumnClick(2, 1);
-    this.onColumnClick(3, 1);
-    this.onColumnClick(4, 1);
-    console.log(this.checkRowWin());
-  }
-  componentDidUpdate() {
-    // console.log("boo");
+    this.assertColWin();
     console.log(this.state.matrix);
   }
 
@@ -86,6 +73,21 @@ export default class App extends Component {
     }
     return false;
   };
+
+  checkColWin = () => {
+    let transMatrix = this.transposeMatrix([...this.state.matrix]);
+    for (let row = 0; row < transMatrix.length; row++) {
+      if (this.check4(transMatrix[row]) === true) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  transposeMatrix = arr => {
+    return arr[0].map((col, i) => arr.map(row => row[i]));
+  };
+
   render() {
     return (
       <div className="App">
