@@ -130,7 +130,7 @@ export default class App extends Component {
 
   checkAllWin = () => {
     if (this.checkRowWin() || this.checkColWin() || this.checkDiagnolWin()) {
-      this.setState({ message: `${this.state.playerNumber} player wins` });
+      this.setState({ message: ` player ${this.state.currentPlayer} wins` });
     }
   };
 
