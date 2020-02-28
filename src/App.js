@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+var assert = require("assert");
 
 export default class App extends Component {
   constructor(props) {
@@ -12,7 +13,30 @@ export default class App extends Component {
     };
   }
 
+  resetMatrix = () => {
+    this.setState({
+      matrix: Array(6)
+        .fill(0) //1. 6 rows
+        .map(row => new Array(7).fill(0)),
+    });
+  };
+
+  assertsRowWin = () => {
+    this.onColumnClick(1, 1);
+    this.onColumnClick(2, 1);
+    this.onColumnClick(3, 1);
+    this.onColumnClick(4, 1);
+    assert(this.checkRowWin() === true);
+    this.resetMatrix();
+    this.onColumnClick(1, 1);
+    this.onColumnClick(1, 1);
+    this.onColumnClick(3, 1);
+    this.onColumnClick(4, 1);
+    assert(this.checkRowWin() === false);
+  };
+
   componentDidMount() {
+    this.assertsRowWin();
     this.onColumnClick(1, 1);
     this.onColumnClick(2, 1);
     this.onColumnClick(3, 1);
