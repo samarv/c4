@@ -25,9 +25,8 @@
 - [x] initialize with current player
 - [ ] when someone clicks on colum.
   - [x]fin the lowest column
-  - [ ] check if we have 4 in the rows
+  - [x] check if we have 4 connected rows horizontally
+  - [x] check if we have 4 connected rows vertically
+  - [x] check if we have 4 connected rows diagnolly
   - [ ] find out which colour is playing
   - [ ] toggle the current player
-  - [ ] check if we have 4 connected rows horizontally
-  - [ ] check if we have 4 connected rows vertically
-  - [ ] check if we have 4 connected rows diagnolly
