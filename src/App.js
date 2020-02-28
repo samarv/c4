@@ -10,6 +10,7 @@ export default class App extends Component {
         .fill(0) //1. 6 rows
         .map(row => new Array(7).fill(0)), // 7 colums
       currentPlayer: 1,
+      message: "",
     };
   }
 
@@ -44,13 +45,6 @@ export default class App extends Component {
     assert(this.checkDiagnolWin() === true);
   };
 
-  componentDidMount() {
-    this.assertsRowWin();
-    this.assertColWin();
-    this.assertDiagnolWin();
-    console.log(this.state.matrix);
-  }
-
   onColumnClick = (selectedColNum, currentPlayer) => {
     let newArr = [...this.state.matrix];
     let lowestIndex = 0;
@@ -63,7 +57,10 @@ export default class App extends Component {
       }
     }
     newArr[lowestIndex][selectedColNum] = currentPlayer;
-    this.setState({ matrix: newArr });
+    this.setState({ matrix: newArr }, () => {
+      this.checkAllWin();
+      this.togglePlayer();
+    });
   };
 
   check4 = arr => {
@@ -131,8 +128,22 @@ export default class App extends Component {
     return arr[0].map((col, i) => arr.map(row => row[i]));
   };
 
+  checkAllWin = () => {
+    if (this.checkRowWin() || this.checkColWin() || this.checkDiagnolWin()) {
+      this.setState({ message: `${this.state.playerNumber} player wins` });
+    }
+  };
+
+  togglePlayer = () => {
+    if (this.state.currentPlayer === 1) {
+      this.setState({ currentPlayer: 2 });
+    } else {
+      this.setState({ currentPlayer: 1 });
+    }
+  };
+
   render() {
-    let { matrix } = this.state;
+    let { matrix, currentPlayer, message } = this.state;
     return (
       <div className="App">
         <table>
@@ -140,30 +151,24 @@ export default class App extends Component {
             {matrix.map((row, i) => {
               return (
                 <tr key={i}>
-                  {matrix[i].map((col, j) => {
-                    if (matrix[i][j] === 0) {
-                      return <td key={j}>{matrix[i][j]}</td>;
-                    } else if (matrix[i][j] === 1) {
-                      return (
-                        <td className="yellowDisc" key={j}>
-                          {matrix[i][j]}
-                        </td>
-                      );
-                    } else if (matrix[i][j] === 2) {
-                      return (
-                        <td className="redDisc" key={j}>
-                          {matrix[i][j]}
-                        </td>
-                      );
-                    } else {
-                      return <td key={j}>{matrix[i][j]}</td>;
-                    }
+                  {this.state.matrix[i].map((col, j) => {
+                    return (
+                      <td
+                        key={j}
+                        onClick={() => {
+                          this.onColumnClick(j, currentPlayer);
+                        }}
+                      >
+                        {this.state.matrix[i][j]}
+                      </td>
+                    );
                   })}
                 </tr>
               );
             })}
           </tbody>
         </table>
+        <p>{message}</p>
       </div>
     );
   }
